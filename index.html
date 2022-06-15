@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Encoder</title>
+    <link rel="stylesheet" href="style.css" type="text/css">
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+<body>
+    <div id="home">
+        <h1>Run-Length Encoding</h1>
+        <h2>Live demonstration</h2>
+        <br>
+        <p>This is a small demonstation project written by Jonathan F. on the 16 June of 2022.</p>
+        <p>After selecting an image, the program will step for step generate the encoded image using the Run-Length-Algorythm.</p>
+        <p>The encoder currently only support 2-Color images (Black & White) on a 8x11 canvas (88px)!</p>
+        <p>You can find this project on GitHub<a href="https://google.com">here</a>.</p>
+        <br><br>
+        <button id="goto_step1">Select Image</button>
+    </div>
+    <div id="step1">
+        <h1>STEP 1<br>Select image</h1>
+        <br><br><br>
+        <h2>Draw Image:</h2>
+        <p class="error">(NOT SUPPORTED YET)</p>
+        <br>
+        <button>Use drawn image</button>
+        <br><br>
+        <h2>OR</h2>
+        <br>
+        <button id="image_btn" onclick="window.image='example'">Use example image</button>
+    </div>
+    <div id="live_encode">
+        <h1>Live encoding</h1>
+        <button onclick="window.curr_iteration++;" id="encoding_nextstep">Next step</button>
+        <br><br>
+        <h2>Image</h2>
+        <div id="show_encoding">
+            <div id="img_main"></div>
+            <h4 id="show_size">Original Image: 96 Bits</h4>
+            <div id="text">
+                <br>
+                <div id="text_encoding">
+                    <h2>Encoding</h2>
+                    <p id="encode_entity_count"></p>
+                </div>
+                <div style="margin-left: 5em; margin-right: 5em;"></div>
+                <div id="text_binary">
+                    <h2>Binary</h2>
+                    <p id="binary_code"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript" src="main.js"></script>
+</body>
+</html>

@@ -1,0 +1,101 @@
+* {
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 0.3em;
+    text-align: center;
+}
+
+body {
+    background-color: black;
+}
+
+a {
+    color: yellow;
+    font-weight: 600;
+    text-decoration: none;
+    transition: 0.2s;
+}
+
+a:visited {
+    color: yellow;
+    transition: 0.2s;
+    content: "here (visited)";
+}
+
+button {
+    padding: 0.6em;
+    border: 2px solid yellow;
+    border-radius: 4px;
+    background-color: black;
+    color: white;
+    font-size: 110%;
+
+    transition: 0.3s;
+}
+
+button:hover {
+    border: 2px solid yellow;
+    border-radius: 4px;
+    background-color: yellow;
+    color: black;
+}
+
+p.error {
+    color: red;
+    font-weight: 900;
+}
+
+
+.img_main_row {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin: 0;
+}
+
+.img_main_cell_ON {
+    margin: 0;
+    width: 1.6em;
+    height: 1.6em;
+    border: 1px white solid;
+    background-color: white;
+}
+
+.img_main_cell_OFF {
+    margin: 0;
+    width: 1.6em;
+    height: 1.6em;
+    border: 1px white solid;
+}
+
+.img_main_cell_ON_HL {
+    margin: 0;
+    width: 1.6em;
+    height: 1.6em;
+    border: 1px greenyellow solid;
+    background-color: greenyellow;  
+}
+
+.img_main_cell_OFF_HL {
+    margin: 0;
+    width: 1.6em;
+    height: 1.6em;
+    border: 1px greenyellow solid;
+}
+
+#text {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+#encode_entity_count p {
+    margin: 0;
+    font-weight: 700;
+}
+
+
+#text_binary p {
+    margin: 0;
+    font-weight: 700;
+}
