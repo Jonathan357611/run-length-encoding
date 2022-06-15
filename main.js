@@ -16,7 +16,7 @@ $("#image_btn").click(function(){
     var image = window.image
     if (image == "example") {
         $.ajax({ type: "GET",   
-                url: "/sprites/01",   
+                url: "sprites/01",   
                 async: false,
                 success : function(text)
                 {
