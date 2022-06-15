@@ -80,6 +80,7 @@ p.error {
     margin: 0;
     width: 1.6em;
     height: 1.6em;
+    background-color: rgba(172, 255, 47, 0.15);
     border: 1px greenyellow solid;
 }
 
@@ -98,4 +99,20 @@ p.error {
 #text_binary p {
     margin: 0;
     font-weight: 700;
+}
+
+button .img_main_cell_OFF_HL {
+    margin: 0;
+    width: 1.6em;
+    height: 1.6em;
+    background-color: rgba(172, 255, 47, 0.15);
+    border: 1px greenyellow solid;
+}
+
+button .img_main_cell_ON_HL {
+    margin: 0;
+    width: 1.6em;
+    height: 1.6em;
+    border: 1px greenyellow solid;
+    background-color: greenyellow;  
 }

@@ -1,3 +1,16 @@
+String.prototype.replaceAt = function(index, replacement) {  // https://stackoverflow.com/a/1431113/14626562
+    return this.substring(0, index) + replacement + this.substring(index + replacement.length);
+}
+
+$.ajax({ type: "GET",   
+        url: "sprites/01",   
+        async: false,
+        success : function(text)
+        {
+            window.drawedImage = text;
+        }
+});
+
 $( document ).ready(function() {
     $("#step1").hide();
     $("#live_encode").hide();
@@ -10,20 +23,50 @@ $("#goto_step1").click(function(){
     $("#home").hide();
     $("#live_encode").hide();
     $("#step1").show();
-})
 
-$("#image_btn").click(function(){
-    var image = window.image
-    if (image == "example") {
-        $.ajax({ type: "GET",   
-                url: "sprites/01",   
-                async: false,
-                success : function(text)
-                {
-                    image = text;
-                }
-        });
+    var image_div = $("#draw_image");
+    var curr_div = 0
+    var count = 0;
+    for (let i = 0; i < 11; i++){
+        curr_div++;
+        image_div.append("<div class=\"img_main_row\" id=\"draw_div" + curr_div + "\"></div>");
+        var curr_div_name = $("#" + "draw_div" + curr_div);
+        for (let j = 0; j < 8; j++) {
+            if (Array.from(window.drawedImage)[count] == "0") {
+                curr_div_name.append("<div id=\"draw_btn_" + count + "\" onclick=\"drawing(" + count + ");\" class=\"img_main_cell_OFF_HL\"></div>");
+            } else {
+                curr_div_name.append("<div id=\"draw_btn_" + count + "\" onclick=\"drawing(" + count + ");\" class=\"img_main_cell_ON_HL\"></div>");
+            }
+            count++;
+        };
+    };
+});
+
+function drawing (number) {
+    var button = $("#draw_btn_" + number);
+    if (button.attr('class') == "img_main_cell_OFF_HL") {
+        button.attr('class', 'img_main_cell_ON_HL');
+        window.drawedImage = window.drawedImage.replaceAt(number, "1");
+    } else {
+        button.attr('class', 'img_main_cell_OFF_HL');
+        window.drawedImage = window.drawedImage.replaceAt(number, "0");
     }
+    console.log(window.drawedImage)
+}
+
+$('.image_btn').click(function(){
+    var count = 0;
+    var final = ""
+    for (letter of window.drawedImage) {
+        if (count == 8) {
+            count = 0;
+            final += "\n";
+        };
+        count++;
+        final += letter;
+    }
+    image = final
+
     console.log("Loaded image:")
     console.log(image)
     $("#home").hide();
@@ -37,20 +80,21 @@ $("#image_btn").click(function(){
     for(var line of image.split(/\r?\n/)){
         curr_div++;
         image_div.append("<div class=\"img_main_row\" id=\"img_div" + curr_div + "\"></div>");
-        var curr_div_name = $("#" + "img_div" + curr_div)
+        var curr_div_name = $("#" + "img_div" + curr_div);
         for (var char of line) {
             if (char == "1") {
-                curr_div_name.append("<div class=\"img_main_cell_ON\"></div>")
+                curr_div_name.append("<div class=\"img_main_cell_ON\"></div>");
             } else {
-                curr_div_name.append("<div class=\"img_main_cell_OFF\"></div>")
-            }
-        }
+                curr_div_name.append("<div class=\"img_main_cell_OFF\"></div>");
+            };
+        };
     };
-    console.log("Image displayed!")
+    console.log("Image displayed!");
     window.currcell = 0;
     window.image = image;
-    window.item_count = {}
-    window.curr_binary = 0
+    window.item_count = {};
+    window.curr_binary = 0;
+    window.done = false;
 });
 
 function binaryToColor(number) {
@@ -71,7 +115,7 @@ function codeToBinary(code) {
         "7": "110",
         "8": "111"
     };
-    var final_string = ""
+    var final_string = "";
 
     if ( Array.from(code)[0] == "B" ) {
         final_string = "1"
@@ -84,6 +128,14 @@ function codeToBinary(code) {
 
 
 $("#encoding_nextstep").click(function(){
+    if (window.done) {
+        window.location.reload(true);
+        $("#home").hide();
+        $("#live_encode").hide();
+        $("#step1").show();
+        return;
+    };
+
     var image = window.image.replace(/[\n\r]/g, '');
     
     var letter_before = null;
@@ -120,11 +172,12 @@ $("#encoding_nextstep").click(function(){
         i++;
     };
 
-    // Show every cell iterated over:
-    var current_row = Math.ceil(window.currcell / 8);
-    var current_cell = 8+(window.currcell - (current_row*8))
+    if (window.currcell >= 88) {
+        window.done = true;
+    }
 
-    var all_cells = []
+    // Show every cell iterated over:
+    var all_cells = [];
 
     for (let i = 0; i < 11; i++) {
         var row_div = $("#img_main").children("div").eq(i);
@@ -134,7 +187,6 @@ $("#encoding_nextstep").click(function(){
         }
     }
 
-    console.log(all_cells)
     for (let cell = 0; cell < window.currcell; cell++) {
         var thecell = all_cells[cell];
         if (image[cell] == "0") {
@@ -170,7 +222,18 @@ $("#encoding_nextstep").click(function(){
             binary_code.append("<p>");
         };
         $("#show_size").empty();
-        $("#show_size").append("<p>Original Image: 96 Bits</p><p>New Size: " + window.curr_binary*4 +" Bits</p>");
         
+        var compression_rate = Math.round((window.curr_binary*4)/88*100*100)/100
+        if (compression_rate > 100 ) {
+            color = "red";
+        } else {
+            color = "yellowgreen";
+        };
+
+        $("#show_size").append("<p>Original Image: 88 Bits</p><p style=\"color: " + color + "\">New Size: " + window.curr_binary*4 +" Bits ("+ compression_rate +"%)</p>");
+        
+        if (window.done) {
+            $("#encoding_nextstep").text("( Again )")
+        }
     }
 });

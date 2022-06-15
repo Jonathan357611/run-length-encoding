@@ -24,17 +24,13 @@
         <h1>STEP 1<br>Select image</h1>
         <br><br><br>
         <h2>Draw Image:</h2>
-        <p class="error">(NOT SUPPORTED YET)</p>
+        <div id="draw_image"></div>
         <br>
-        <button>Use drawn image</button>
-        <br><br>
-        <h2>OR</h2>
-        <br>
-        <button id="image_btn" onclick="window.image='example'">Use example image</button>
+        <button class="image_btn" id="custom_image_btn" onclick="window.image='custom'">Use image</button>
     </div>
     <div id="live_encode">
         <h1>Live encoding</h1>
-        <button onclick="window.curr_iteration++;" id="encoding_nextstep">Next step</button>
+        <button id="encoding_nextstep">Next step</button>
         <br><br>
         <h2>Image</h2>
         <div id="show_encoding">
