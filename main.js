@@ -42,6 +42,20 @@ $("#goto_step1").click(function(){
     };
 });
 
+$("#clear_draw").click(function(){
+    window.drawedImage = "";
+    number = 0
+    for (let i=0; i<11; i++) {
+        var div = $("#draw_image").children("div").eq(i);
+        for (let j=0; j<8; j++) {
+            button = div.children("div").eq(j);
+            button.attr('class', 'img_main_cell_OFF_HL');
+            window.drawedImage = window.drawedImage.replaceAt(number, "0");
+            number++;
+        }
+    };
+});
+
 function drawing (number) {
     var button = $("#draw_btn_" + number);
     if (button.attr('class') == "img_main_cell_OFF_HL") {
