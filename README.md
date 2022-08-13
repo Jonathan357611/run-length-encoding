@@ -1,6 +1,6 @@
 # run-length-encoding
 
-This is an homework written by Jonathan F.
+This was an homework written by Jonathan F.
 
 You can access the site [here](https://jonathan357611.github.io/run-length-encoding/)
 
